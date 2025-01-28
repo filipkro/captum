@@ -139,14 +139,14 @@ def compute_gradients(
         # contains batch_size * #steps elements
         grads = torch.autograd.grad(torch.unbind(outputs), inputs,
                                     allow_unused=allow_unused)
-        grads = [
+        grads = tuple(
             (
                 grad
                 if grad is not None
                 else torch.zeros_like(inputs[ix])
             )
             for (ix, grad) in enumerate(grads)
-        ]
+        )
     return grads
 
 
